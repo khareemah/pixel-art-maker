@@ -4,11 +4,14 @@
 let form = document.getElementById("sizePicker");
 function makeGrid(event) {
   // Your code goes here!
-  event.preventDefault();
-  let color = document.getElementById("colorPicker").value;
+  let table = document.getElementById("pixelCanvas");
   let width = document.getElementById("inputWidth").value;
   let height = document.getElementById("inputHeight").value;
-  let table = document.getElementById("pixelCanvas");
+  event.preventDefault();
+  while (table.firstChild) {
+    table.firstChild.remove();
+  }
+
   for (let i = 0; i < height; i++) {
     let tr = document.createElement("tr");
     table.appendChild(tr);
@@ -17,6 +20,11 @@ function makeGrid(event) {
       tr.appendChild(td);
     }
   }
+  function addColor(event) {
+    let color = document.getElementById("colorPicker").value;
+    event.target.style.backgroundColor = color;
+  }
+  table.addEventListener("click", addColor);
 }
-let tds = document.querySelector("td");
+
 form.addEventListener("submit", makeGrid);
